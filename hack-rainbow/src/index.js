@@ -26,6 +26,7 @@ document.querySelector('form').onsubmit = async (event) => {
       // pass the value that the user entered in the greeting field
       message: greeting.value
     })
+    await window.contract.incrementCounter()
   } catch (e) {
     alert(
       'Something went wrong! ' +
@@ -37,6 +38,7 @@ document.querySelector('form').onsubmit = async (event) => {
     // re-enable the form, whether the call succeeded or failed
     fieldset.disabled = false
   }
+
 
   // disable the save button, since it now matches the persisted value
   submitButton.disabled = true
@@ -113,10 +115,10 @@ async function fetchCounter() {
   document.querySelectorAll('[data-behavior=counter]').forEach(el => {
     // set divs, spans, etc
     // el.innerText = currentCounter
-    el.innerText = "FFFF"
+    el.innerText = currentCounter
     // set input elements
     // el.value = currentCounter
-    el.value = "FFFFF"
+    el.value = currentCounter
   })
 }
 

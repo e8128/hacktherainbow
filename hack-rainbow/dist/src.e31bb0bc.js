@@ -22613,7 +22613,7 @@ function _initContract() {
               // View methods are read only. They don't modify the state, but usually return some value.
               viewMethods: ['getGreeting', 'getCounter'],
               // Change methods can modify the state. But you don't receive the returned value when called.
-              changeMethods: ['setGreeting']
+              changeMethods: ['setGreeting', 'incrementCounter']
             });
 
           case 7:
@@ -22686,33 +22686,37 @@ document.querySelector('form').onsubmit = /*#__PURE__*/function () {
             });
 
           case 6:
-            _context.next = 12;
-            break;
+            _context.next = 8;
+            return window.contract.incrementCounter();
 
           case 8:
-            _context.prev = 8;
+            _context.next = 14;
+            break;
+
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](3);
             alert('Something went wrong! ' + 'Maybe you need to sign out and back in? ' + 'Check your browser console for more info.');
             throw _context.t0;
 
-          case 12:
-            _context.prev = 12;
+          case 14:
+            _context.prev = 14;
             // re-enable the form, whether the call succeeded or failed
             fieldset.disabled = false;
-            return _context.finish(12);
+            return _context.finish(14);
 
-          case 15:
+          case 17:
             // disable the save button, since it now matches the persisted value
             submitButton.disabled = true; // update the greeting in the UI
 
-            _context.next = 18;
+            _context.next = 20;
             return fetchGreeting();
 
-          case 18:
-            _context.next = 20;
+          case 20:
+            _context.next = 22;
             return fetchCounter();
 
-          case 20:
+          case 22:
             // show notification
             document.querySelector('[data-behavior=notification]').style.display = 'block'; // remove notification again after css animation completes
             // this allows it to be shown again next time the form is submitted
@@ -22721,12 +22725,12 @@ document.querySelector('form').onsubmit = /*#__PURE__*/function () {
               document.querySelector('[data-behavior=notification]').style.display = 'none';
             }, 11000);
 
-          case 22:
+          case 24:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 8, 12, 15]]);
+    }, _callee, null, [[3, 10, 14, 17]]);
   }));
 
   return function (_x) {
@@ -22823,10 +22827,10 @@ function _fetchCounter() {
             document.querySelectorAll('[data-behavior=counter]').forEach(function (el) {
               // set divs, spans, etc
               // el.innerText = currentCounter
-              el.innerText = "FFFF"; // set input elements
+              el.innerText = currentCounter; // set input elements
               // el.value = currentCounter
 
-              el.value = "FFFFF";
+              el.value = currentCounter;
             });
 
           case 4:
@@ -22870,7 +22874,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61459" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

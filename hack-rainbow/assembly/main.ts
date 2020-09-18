@@ -39,6 +39,12 @@ export function setGreeting(message: string): void {
   storage.set(account_id, message);
 }
 
+export function incrementCounter(): void {
+  const newCounter = storage.getPrimitive<i32>("counter", 0) + 1;
+  storage.set<i32>("counter", newCounter);
+  logging.log("Counter is now: " + newCounter.toString());
+}
+
 export function getCounter(): i32 {
   return storage.getPrimitive<i32>("counter", 0)
 }
