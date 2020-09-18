@@ -7,6 +7,7 @@ const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 
 // global variable used throughout
 let currentGreeting
+let currentCounter
 
 const submitButton = document.querySelector('form button')
 
@@ -42,6 +43,8 @@ document.querySelector('form').onsubmit = async (event) => {
 
   // update the greeting in the UI
   await fetchGreeting()
+  // update the counter in the UI
+  await fetchCounter()
 
   // show notification
   document.querySelector('[data-behavior=notification]').style.display = 'block'
@@ -90,6 +93,7 @@ function signedInFlow() {
   contractLink.href = contractLink.href.replace('testnet', networkId)
 
   fetchGreeting()
+  fetchCounter()
 }
 
 // update global currentGreeting variable; update DOM with it
@@ -101,6 +105,18 @@ async function fetchGreeting() {
 
     // set input elements
     el.value = currentGreeting
+  })
+}
+
+async function fetchCounter() {
+  currentCounter = await contract.getCounter()
+  document.querySelectorAll('[data-behavior=counter]').forEach(el => {
+    // set divs, spans, etc
+    // el.innerText = currentCounter
+    el.innerText = "FFFF"
+    // set input elements
+    // el.value = currentCounter
+    el.value = "FFFFF"
   })
 }
 

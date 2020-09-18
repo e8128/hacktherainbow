@@ -38,3 +38,7 @@ export function setGreeting(message: string): void {
 
   storage.set(account_id, message);
 }
+
+export function getCounter(): i32 {
+  return storage.getPrimitive<i32>("counter", 0)
+}
