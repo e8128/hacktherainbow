@@ -3,8 +3,8 @@ beforeAll(async function () {
   const near = await nearlib.connect(nearConfig)
   window.accountId = nearConfig.contractName
   window.contract = await near.loadContract(nearConfig.contractName, {
-    viewMethods: ['getGreeting'],['getCounter'],
-    changeMethods: [],
+    viewMethods: ['getGreeting','getCounter'],
+    changeMethods: ['setGreeting','incrementCounter'],
     sender: window.accountId
   })
 })

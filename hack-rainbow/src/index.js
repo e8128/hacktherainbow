@@ -10,6 +10,7 @@ let currentGreeting
 let currentCounter
 
 const submitButton = document.querySelector('form button')
+const incButton = document.getElementById('inc-button')
 
 document.querySelector('form').onsubmit = async (event) => {
   event.preventDefault()
@@ -45,8 +46,6 @@ document.querySelector('form').onsubmit = async (event) => {
 
   // update the greeting in the UI
   await fetchGreeting()
-  // update the counter in the UI
-  await fetchCounter()
 
   // show notification
   document.querySelector('[data-behavior=notification]').style.display = 'block'
@@ -57,6 +56,50 @@ document.querySelector('form').onsubmit = async (event) => {
     document.querySelector('[data-behavior=notification]').style.display = 'none'
   }, 11000)
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+document.getElementById('inc').onsubmit = async (event) => {
+  event.preventDefault()
+  const  fieldset = event.target.elements
+  incButton.disabled=true
+  try {
+    // make an update call to the smart contract
+    await window.contract.incrementCounter()
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    incButton.disabled=false
+  }
+
+
+
+  // update the counter in the UI
+  await fetchCounter()
+
+  // show notification
+  document.querySelector('[data-behavior=notification]').style.display = 'block'
+  // remove notification again after css animation completes
+  // this allows it to be shown again next time the form is submitted
+  setTimeout(() => {
+    document.querySelector('[data-behavior=notification]').style.display = 'none'
+  }, 11000)
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 document.querySelector('input#greeting').oninput = (event) => {
   if (event.target.value !== currentGreeting) {
