@@ -1,106 +1,80 @@
-hack-rainbow
-==================
+Token Contract in AssemblyScript
+================================
 
-This app was initialized with [create-near-app]
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/near-examples/token-contract-as)
+
+<!-- MAGIC COMMENT: DO NOT DELETE! Everything above this line is hidden on NEAR Examples page -->
+
+This project contains an implementation of a token contract similar to [ERC20](https://theethereum.wiki/w/index.php/ERC20_Token_Standard) but simpler. We'll visit a page, sign in and use your browser's console to run commands to initialize, send, and get the balance of a custom token.
+
+**Note**: this example uses a basic version of a token. It is not the supported token contract laid out in the [NEAR Enhancement Proposal for non-fungible tokens](https://github.com/nearprotocol/NEPs/pull/4).
+Visit [this example](https://github.com/near-examples/NFT) illustrating implementations of the non-fungible token in Rust and AssemblyScript. It is not recommended to deploy non-fungible tokens written in AssemblyScript for financial use cases.
 
 
-Quick Start
-===========
+Getting started
+===============
 
-To run this project locally:
+There's a button at the top of this file that says "Open in Gitpod." If you want to try out this project as fast as possible, that's what you want. It will open the project in your browser with a complete integrated development environment configured for you. If you want to run the project yourself locally, read on.
 
-1. Prerequisites: Make sure you've installed [Node.js] ≥ 12
-2. Install dependencies: `npm install`
-3. Run the local development server: `npm run dev` (see `package.json` for a
-   full list of `scripts` you can run with `npm`)
+There are two ways to run this project locally. The first is quick, and a good way to instantly become familiar with this example. Once familiar, the next step is to create your own NEAR account and deploy the contract to testnet.
 
-Now you'll have a local development environment backed by the NEAR TestNet!
 
-Go ahead and play with the app and the code. As you make code changes, the app will automatically reload.
+Quick option
+---------------
+
+1. Install dependencies:
+
+    yarn
+
+2. Build and deploy this smart contract to a development account. This development account will be created automatically and is not intended for reuse:
+
+    yarn dev
+
+
+Standard deploy option
+----------------------
+
+In this second option, the smart contract will get deployed to a specific account created with the NEAR Wallet.
+
+1. Ensure `near-cli` is installed by running:
+
+       near --version
+
+   If needed, install `near-cli`:
+
+       npm install near-cli -g
+
+2. If you do not have a NEAR account, please create one with [NEAR Wallet](https://wallet.nearprotocol.com). Then, in the project root, login with `near-cli` by following the instructions after this command:
+
+       near login
+
+3. Modify the top of `src/config.js`, changing the `CONTRACT_NAME` to be the NEAR account that you just used to log in.
+
+       const CONTRACT_NAME = process.env.CONTRACT_NAME || 'YOUR_ACCOUNT_NAME_HERE'; /* TODO: fill this in! */
+
+4. Start the example!
+
+       yarn start
 
 
 Exploring The Code
 ==================
 
-1. The "backend" code lives in the `/assembly` folder. This code gets deployed to
-   the NEAR blockchain when you run `npm run deploy:contract`. This sort of
+1. The backend code lives in the `/assembly` folder. This code gets deployed to
+   the NEAR blockchain when you run `yarn deploy:contract`. This sort of
    code-that-runs-on-a-blockchain is called a "smart contract" – [learn more
    about NEAR smart contracts][smart contract docs].
-2. The frontend code lives in the `/src` folder. `/src/index.html` is a great
-   place to start exploring. Note that it loads in `/src/index.js`, where you
-   can learn how the frontend connects to the NEAR blockchain.
-3. Tests: there are different kinds of tests for the frontend and the smart
-   contract. The smart contract code gets tested with [asp], and the frontend
-   code gets tested with [jest]. You can run both of these at once with `npm
-   run test`.
+2. The frontend code lives in the `/src` folder.
+   [/src/index.html](/src/index.html) is a great place to start exploring. Note
+   that it loads in `/src/main.js`, where you can learn how the frontend
+   connects to the NEAR blockchain.
+3. Tests: there are different kinds of tests for the frontend and backend. The
+   backend code gets tested with the [asp] command for running the backend
+   AssemblyScript tests, and [jest] for running frontend tests. You can run
+   both of these at once with `yarn test`.
 
+Both contract and client-side code will auto-reload as you change source files.
 
-Deploy
-======
-
-Every smart contract in NEAR has its [own associated account][NEAR accounts]. When you run `npm run dev`, your smart contract gets deployed to the live NEAR TestNet with a throwaway account. When you're ready to make it permanent, here's how.
-
-
-Step 0: Install near-cli (optional)
--------------------------------------
-
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `npm install`, but for best ergonomics you may want to install it globally:
-
-    npm install --global near-cli
-
-Or, if you'd rather use the locally-installed version, you can prefix all `near` commands with `npx`
-
-Ensure that it's installed with `near --version` (or `npx near --version`)
-
-
-Step 1: Create an account for the contract
-------------------------------------------
-
-Each account on NEAR can have at most one contract deployed to it. If you've already created an account such as `your-name.testnet`, you can deploy your contract to `hack-rainbow.your-name.testnet`. Assuming you've already created an account on [NEAR Wallet], here's how to create `hack-rainbow.your-name.testnet`:
-
-1. Authorize NEAR CLI, following the commands it gives you:
-
-      near login
-
-2. Create a subaccount (replace `YOUR-NAME` below with your actual account name):
-
-      near create-account hack-rainbow.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet
-
-
-Step 2: set contract name in code
----------------------------------
-
-Modify the line in `src/config.js` that sets the account name of the contract. Set it to the account id you used above.
-
-    const CONTRACT_NAME = process.env.CONTRACT_NAME || 'hack-rainbow.YOUR-NAME.testnet'
-
-
-Step 3: deploy!
----------------
-
-One command:
-
-    npm run deploy
-
-As you can see in `package.json`, this does two things:
-
-1. builds & deploys smart contract to NEAR TestNet
-2. builds & deploys frontend code to GitHub using [gh-pages]. This will only work if the project already has a repository set up on GitHub. Feel free to modify the `deploy` script in `package.json` to deploy elsewhere.
-
-
-Troubleshooting
-===============
-
-On Windows, if you're seeing an error containing `EPERM` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
-
-
-  [create-near-app]: https://github.com/near/create-near-app
-  [Node.js]: https://nodejs.org/en/download/package-manager/
-  [React]: https://reactjs.org
-  [smart contract docs]: https://docs.near.org/docs/roles/developer/contracts/intro
+  [smart contract docs]: https://docs.nearprotocol.com/docs/roles/developer/contracts/assemblyscript
   [asp]: https://www.npmjs.com/package/@as-pect/cli
   [jest]: https://jestjs.io/
-  [NEAR accounts]: https://docs.near.org/docs/concepts/account
-  [NEAR Wallet]: https://wallet.testnet.near.org/
-  [near-cli]: https://github.com/near/near-cli
-  [gh-pages]: https://github.com/tschaub/gh-pages
