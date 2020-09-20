@@ -4,6 +4,7 @@ import { context, storage, logging, PersistentMap } from "near-sdk-as";
 // --- contract code goes below
 
 const balances = new PersistentMap<string, u64>("b:");
+const funds = new PersistentMap<string, u64>("f:");
 
 const TOTAL_SUPPLY: u64 = 1000000;
 export function init(initialOwner: string): void {
@@ -47,4 +48,16 @@ export function transferFrom(from: string, to: string, tokens: u64): boolean {
 
 function getBalance(owner: string): u64 {
   return balances.contains(owner) ? balances.getSome(owner) : 0;
+}
+
+export function currentFund() : u64 {
+  return funds.contains("fund") ? funds.getSome("fund") : 0;
+}
+
+export function donate(from: string, tokens: u64) : boolean {
+  const fromAmount = getBalance(from);
+  assert(fromAmount >= tokens, "not enough tokens on account");
+  balances.set(from, fromAmount - tokens);
+  funds.set("fund", currentFund() + tokens);
+  return true;
 }

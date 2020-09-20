@@ -7,10 +7,12 @@ const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 
 // global variable used throughout
 let currentBalance
+let currentFund
 
 const balanceButton = document.getElementById('balance-button')
 
 //////////////////////////////////////////////////////////////////////////
+
 
 document.getElementById('balance').onsubmit = async (event) => {
   event.preventDefault()
@@ -19,6 +21,7 @@ document.getElementById('balance').onsubmit = async (event) => {
   try {
     // make an update call to the smart contract
     await fetchBalance(balance.value)
+    await fetchFund()
     
   } catch (e) {
     alert(
@@ -72,6 +75,16 @@ function signedInFlow() {
   // update with selected networkId
   accountLink.href = accountLink.href.replace('testnet', networkId)
   contractLink.href = contractLink.href.replace('testnet', networkId)
+}
+
+async function fetchFund() {
+  currentFund = await contract.currentFund()
+  document.querySelectorAll('[data-behavior=fund]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = currentFund
+    // set input elements
+    el.value = currentFund
+  })
 }
 
 async function fetchBalance(owner) {
