@@ -98,6 +98,8 @@ function signedInFlow() {
   fetchCounter()
 }
 
+
+
 // update global currentGreeting variable; update DOM with it
 async function fetchGreeting() {
   currentGreeting = await contract.getGreeting({ accountId: window.accountId })
@@ -120,6 +122,9 @@ async function fetchCounter() {
     // el.value = currentCounter
     el.value = currentCounter
   })
+}
+async function initToken() {
+  await contract.init({initialOwner: walletAccount.getAccountId()})
 }
 
 // `nearInitPromise` gets called on page load

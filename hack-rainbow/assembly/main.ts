@@ -12,7 +12,7 @@
  *
  */
 
-import { Context, logging, storage } from "near-sdk-as";
+import { Context, logging, storage, PersistentMap } from "near-sdk-as";
 
 const DEFAULT_MESSAGE = "Hello"
 
@@ -47,4 +47,27 @@ export function incrementCounter(): void {
 
 export function getCounter(): i32 {
   return storage.getPrimitive<i32>("counter", 0)
+}
+
+const balances = new PersistentMap<string, u64>("b:");
+const TOTAL_SUPPLY: u64 = 1000000;
+
+export function init(initialOwner: string): void {
+  logging.log("initialOwner: " + initialOwner);
+  assert(storage.get<string>("init") == null, "Already initialized token supply");
+  balances.set(initialOwner, TOTAL_SUPPLY);
+  storage.set("init", "done");
+}
+
+export function totalSupply(): string {
+  return TOTAL_SUPPLY.toString();
+}
+
+export function balanceOf(tokenOwner: string): u64 {
+  logging.log("balanceOf: " + tokenOwner);
+  if (!balances.contains(tokenOwner)) {
+    return 0;
+  }
+  const result = balances.getSome(tokenOwner);
+  return result;
 }
