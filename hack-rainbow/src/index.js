@@ -8,10 +8,13 @@ const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 // global variable used throughout
 let currentGreeting
 let currentCounter
+let currentBalance
 
-const submitButton = document.querySelector('form button')
+//const submitButton = document.querySelector('form button')
 const incButton = document.getElementById('inc-button')
+const balanceButton = document.getElementById('balance-button')
 
+/*
 document.querySelector('form').onsubmit = async (event) => {
   event.preventDefault()
 
@@ -56,7 +59,7 @@ document.querySelector('form').onsubmit = async (event) => {
     document.querySelector('[data-behavior=notification]').style.display = 'none'
   }, 11000)
 }
-
+*/
 
 
 
@@ -98,6 +101,44 @@ document.getElementById('inc').onsubmit = async (event) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+
+//////////////////////////////////////////////////////////////////////////
+
+document.getElementById('balance').onsubmit = async (event) => {
+  event.preventDefault()
+  const { fieldset, balance } = event.target.elements
+  balanceButton.disabled=true
+  try {
+    // make an update call to the smart contract
+    await fetchBalance(balance.value)
+    
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'+
+      e
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    balanceButton.disabled=false
+  }
+
+  // update the counter in the UI
+  
+
+  // show notification
+  document.querySelector('[data-behavior=notification]').style.display = 'block'
+  // remove notification again after css animation completes
+  // this allows it to be shown again next time the form is submitted
+  setTimeout(() => {
+    document.querySelector('[data-behavior=notification]').style.display = 'none'
+  }, 11000)
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -164,6 +205,19 @@ async function fetchCounter() {
     // set input elements
     // el.value = currentCounter
     el.value = currentCounter
+  })
+}
+
+async function fetchBalance(owner) {
+  currentBalance = await contract.balanceOf({tokenOwner:owner})
+  alert(owner)
+  document.querySelectorAll('[data-behavior=balance]').forEach(el => {
+    // set divs, spans, etc
+    // el.innerText = currentCounter
+    el.innerText = currentBalance
+    // set input elements
+    // el.value = currentCounter
+    el.value = currentBalance
   })
 }
 async function initToken() {
