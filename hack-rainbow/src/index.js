@@ -21,7 +21,7 @@ document.getElementById('balance').onsubmit = async (event) => {
   try {
     // make an update call to the smart contract
     await fetchBalance(balance.value)
-    await fetchFund()
+    // await fetchFund()
     
   } catch (e) {
     alert(
@@ -77,15 +77,15 @@ function signedInFlow() {
   contractLink.href = contractLink.href.replace('testnet', networkId)
 }
 
-async function fetchFund() {
-  currentFund = await contract.currentFund()
-  document.querySelectorAll('[data-behavior=fund]').forEach(el => {
-    // set divs, spans, etc
-    el.innerText = currentFund
-    // set input elements
-    el.value = currentFund
-  })
-}
+// async function fetchFund() {
+//   currentFund = await contract.
+//   document.querySelectorAll('[data-behavior=fund]').forEach(el => {
+//     // set divs, spans, etc
+//     el.innerText = currentFund
+//     // set input elements
+//     el.value = currentFund
+//   })
+// }
 
 async function fetchBalance(owner) {
   currentBalance = await contract.balanceOf({tokenOwner:owner})
