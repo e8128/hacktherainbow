@@ -34,25 +34,82 @@
       Sign out
     </button>
     <main>
-      <div id="shmuck">
-        <h1>
-          Balance: 
-          <span data-behavior="balance"></span>
-        </h1>
-        <form id="balance">
-          <fieldset id="inc-fieldset">
-            <div style="display: flex">
-              <input
-                style="flex: 1"
-                autocomplete="off"
-                id="balance"
-                data-behavior="balance1"
-              />
-              <button id="balance-button" style="border-radius: 0 5px 5px 0">get balance</button>
+        <div id="root-container">
+          <div id="nav-menu">
+            <img id="logo"src=""></img>
+            <div id="menu-items">
+              <ul id="items">
+                <li class="list-items"> <a href="#introduction">Who are we</a></li>
+                        <li class="list-items"> 
+                <a href="#balance-box">Check Your Balance</a></li>
+                <li class="list-items"> nougat</li>
+                <li class="list-items"> frosting</li>
+                <li class="list-items"> sugar</li>
+                <li class="list-items"> spice</li>
+                <li class="list-items"> Everything nice</li>
+               </ul>
             </div>
-          </fieldset>
-        </form>
+          </div>
+           <div id ="title">
+            <h1> Welcome to <s>the Den of Dengeneracy</s>DonationHub</h1>
+          </div> 
+        
+          <div id="introduction">
+            <p class="title-text"> Introduction </p>
+         <img id="introduction-image" src="./assets/logo-black.svg"alt="hello"></img>
+      <div id="introduction-text">
+        <p> LOLOLOL. I want to see how far this rabbit hole goes. IDK where or when this line will end. NVm i  just figured it out</p>
+      </div>
+     </div>
+     
+     <div class="barrier"></div>
+     
+       <div class="box">
+          <p class="title-text"> CHECK YOUR BALANCE HERE </p>
+         <div id="balance-container">
+           BalanceOf:
+           <span data-behavior="balance"></span>
+           <form id="balance">
+             <fieldset>
+            <input id="balance-input" type="text"></input>
+            <input type="submit" ></input>
+           </fieldset>
+           </form>
+         </div>
         </div>
+      <div class="barrier"></div>
+
+      <div class="box">
+        <p class="title-text"> CREATE YOUR FUNDS HERE </p>
+       <div id="balance-container">
+         Fund:
+         <span data-behavior="balance"></span>
+         <form id="createFund">
+           <fieldset>
+          <input id="create-fund-id" type="text" placeholder="Enter fund id here"></input>
+          <input id="create-fund-manager" type="text"  placeholder="Enter fund manager"></input>
+          <input id="create-fund-description" type="text" placeholder="Enter fund description"></input>
+          <input type="submit" ></input>
+         </fieldset>
+         </form>
+       </div>
+      </div>
+      <div class="barrier"></div>
+
+      <div class="box">
+        <p class="title-text"> GET YOUR FUNDS HERE </p>
+       <div id="balance-container">
+         BalanceOf:
+         <span data-behavior="balance"></span>
+         <form id="balance">
+           <fieldset>
+          <input id="balance-input" type="text"></input>
+          <input type="submit" ></input>
+         </fieldset>
+         </form>
+       </div>
+      </div>
+        </div>  
     </main>
   </div>
 
