@@ -51,16 +51,12 @@ function getBalance(owner: string): u64 {
 }
 
 export function getFund(fundId: string): Fund {
+  logging.log("getFund: " + fundId);
   return funds.getSome(fundId);
 }
 
-// export function getFundTokens(fundId: string): u64 {
-//   assert(funds.contains(fundId), "fund does not exist");
-//   return (funds.contains(fundId) ? funds.getSome(fundId).tokens : 0);
-// }
-
-// eventually make from just context.sender
-export function donate(from: string, fundId: string, tokens: u64) : boolean {
+export function donate(fundId: string, tokens: u64) : boolean {
+  const from = context.sender;
   logging.log("donation from: " + from + " to: " + fundId + " tokens: " + tokens.toString());
   assert(funds.contains(fundId), "fund does not exist");
   const fromAmount = getBalance(from);
@@ -73,8 +69,35 @@ export function donate(from: string, fundId: string, tokens: u64) : boolean {
 
 // eventually make manager just context.sender
 export function createFund(fundId: string, manager: string, description: string): boolean {
+  logging.log("fund " + fundId + " created by " + manager);
   let fund: Fund = new Fund(fundId, 0, manager, description);
   funds.set(fundId, fund);
+  return true;
+}
+
+export function editDescription(fundId: string, newDescription: string): boolean {
+  logging.log("fund " + fundId + " edited");
+  let fund: Fund = funds.getSome(fundId);
+  assert(context.sender == fund.manager);
+  funds.set(fundId, new Fund(fundId, fund.tokens, fund.manager, newDescription));
+  return true;
+}
+
+export function editManager(fundId: string, newManager: string): boolean {
+  logging.log("fund " + fundId + " edited");
+  let fund: Fund = funds.getSome(fundId);
+  assert(context.sender == fund.manager);
+  funds.set(fundId, new Fund(fundId, fund.tokens, newManager, fund.description));
+  return true;
+}
+
+export function emptyFund(fundId: string): boolean {
+  let fund: Fund = funds.getSome(fundId);
+  logging.log("fund " + fundId + " emptied");
+  assert(context.sender == fund.manager);
+  const tokens = fund.tokens;
+  funds.set(fundId, new Fund(fundId, 0, fund.manager, fund.description));
+  balances.set(fund.manager, getBalance(fund.manager) + tokens);
   return true;
 }
 
