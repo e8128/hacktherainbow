@@ -35,12 +35,20 @@
     </button>
     <main>
       <div id="shmuck">
-        <h1>
+        <h2> Welcome <span data-behavior="account-id"></span></h2>
+        <h2>
+          <br>
           Balance: 
           <span data-behavior="balance"></span>
           <br>
-          Fund:
-          <span data-behavior="fund"></span>
+          <br>
+          Fund: <span data-behavior="fundId"></span>
+          <br>
+          Tokens: <span data-behavior="fundTokens"></span>
+          <br>
+          Manager: <span data-behavior="fundManager"></span>
+          <br>
+          Description: <span data-behavior="fundDescription"></span>
         </h1>
         <form id="balance">
           <fieldset id="inc-fieldset">
@@ -55,8 +63,22 @@
             </div>
           </fieldset>
         </form>
+        <form id="fund">
+          <fieldset id="inc-fieldset">
+            <div style="display: flex">
+              <input
+                style="flex: 1"
+                autocomplete="off"
+                id="fund"
+                data-behavior="fund1"
+              />
+              <button id="fund-button" style="border-radius: 0 5px 5px 0">get fund</button>
+            </div>
+          </fieldset>
+        </form>
         </div>
     </main>
+    
   </div>
 
   <!-- <aside data-behavior="notification" style="display: none">

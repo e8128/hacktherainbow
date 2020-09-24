@@ -38,14 +38,31 @@ document.getElementById('balance').onsubmit = async (event) => {
 
   // update the counter in the UI
   
-
   // show notification
-  document.querySelector('[data-behavior=notification]').style.display = 'block'
+  // document.querySelector('[data-behavior=notification]').style.display = 'block'
   // remove notification again after css animation completes
   // this allows it to be shown again next time the form is submitted
-  setTimeout(() => {
-    document.querySelector('[data-behavior=notification]').style.display = 'none'
-  }, 11000)
+  // setTimeout(() => {
+  //   document.querySelector('[data-behavior=notification]').style.display = 'none'
+  // }, 11000)
+}
+
+document.getElementById('fund').onsubmit = async (event) => {
+  event.preventDefault()
+  const { fieldset, fund } = event.target.elements
+  balanceButton.disabled=true
+  try {
+    // make an update call to the smart contract
+    await fetchFund(fund.value)
+    // await fetchFund()
+    
+  } catch (e) {
+    alert("Fund does not exist!")
+    
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    balanceButton.disabled=false
+  }
 }
 
 document.querySelector('#sign-in-button').onclick = login
@@ -64,32 +81,44 @@ function signedInFlow() {
     el.innerText = window.accountId
   })
 
-  // populate links in the notification box
-  const accountLink = document.querySelector('[data-behavior=notification] a:nth-of-type(1)')
-  accountLink.href = accountLink.href + window.accountId
-  accountLink.innerText = '@' + window.accountId
-  const contractLink = document.querySelector('[data-behavior=notification] a:nth-of-type(2)')
-  contractLink.href = contractLink.href + window.contract.contractId
-  contractLink.innerText = '@' + window.contract.contractId
+  // // populate links in the notification box
+  // const accountLink = document.querySelector('[data-behavior=notification] a:nth-of-type(1)')
+  // accountLink.href = accountLink.href + window.accountId
+  // accountLink.innerText = '@' + window.accountId
+  // const contractLink = document.querySelector('[data-behavior=notification] a:nth-of-type(2)')
+  // contractLink.href = contractLink.href + window.contract.contractId
+  // contractLink.innerText = '@' + window.contract.contractId
 
   // update with selected networkId
-  accountLink.href = accountLink.href.replace('testnet', networkId)
-  contractLink.href = contractLink.href.replace('testnet', networkId)
+  // accountLink.href = accountLink.href.replace('testnet', networkId)
+  // contractLink.href = contractLink.href.replace('testnet', networkId)
 }
 
-// async function fetchFund() {
-//   currentFund = await contract.
-//   document.querySelectorAll('[data-behavior=fund]').forEach(el => {
-//     // set divs, spans, etc
-//     el.innerText = currentFund
-//     // set input elements
-//     el.value = currentFund
-//   })
-// }
+async function fetchFund(fundId) {
+  currentFund = await contract.getFund({fundId: fundId})
+  document.querySelectorAll('[data-behavior=fundId]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = currentFund.fundId
+    // set input elements
+    el.value = currentFund.fundId
+  })
+  document.querySelectorAll('[data-behavior=fundTokens]').forEach(el => {
+    el.innerText = currentFund.tokens
+    el.value = currentFund.tokens
+  })
+  document.querySelectorAll('[data-behavior=fundManager]').forEach(el => {
+    el.innerText = currentFund.manager
+    el.value = currentFund.manager
+  })
+  document.querySelectorAll('[data-behavior=fundDescription]').forEach(el => {
+    el.innerText = currentFund.description
+    el.value = currentFund.description
+  })
+}
 
 async function fetchBalance(owner) {
   currentBalance = await contract.balanceOf({tokenOwner:owner})
-  alert(owner)
+  // alert(owner)
   document.querySelectorAll('[data-behavior=balance]').forEach(el => {
     // set divs, spans, etc
     el.innerText = currentBalance
