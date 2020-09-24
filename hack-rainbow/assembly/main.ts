@@ -7,6 +7,8 @@ const balances = new PersistentMap<string, u64>("b:");
 const funds = new PersistentMap<string, Fund>("f:");
 
 const TOTAL_SUPPLY: u64 = 1000000;
+
+
 export function init(initialOwner: string): void {
   logging.log("initialOwner: " + initialOwner);
   assert(storage.get<string>("init") == null, "Already initialized token supply");
@@ -101,16 +103,20 @@ export function emptyFund(fundId: string): boolean {
   return true;
 }
 
-export class Fund {
-  fundId: string;
-  tokens: u64;
-  manager: string;
-  description: string;
+  export class Fund {
+    fundId: string;
+    tokens: u64;
+    manager: string;
+    description: string;
 
-  constructor(fundId: string, tokens: u64, manager: string, description: string) {
-    this.fundId = fundId;
-    this.tokens = tokens;
-    this.manager = manager;
-    this.description = description;
+    constructor(fundId: string, tokens: u64, manager: string, description: string) {
+      this.fundId = fundId;
+      this.tokens = tokens;
+      this.manager = manager;
+      this.description = description;
+    }
+    
   }
-}
+
+ 
+  

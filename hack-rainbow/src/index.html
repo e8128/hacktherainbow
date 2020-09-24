@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-16">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./assets/favicon.ico" />
   <link rel="apple-touch-icon" href="./assets/favicon.ico" />
@@ -84,7 +84,7 @@
        <div id="balance-container">
          Fund:
          <span data-behavior="balance"></span>
-         <form id="createFund">
+         <form id="createFund" accept-charset = "UTF-16">
            <fieldset>
           <input id="create-fund-id" type="text" placeholder="Enter fund id here"></input>
           <input id="create-fund-manager" type="text"  placeholder="Enter fund manager"></input>
@@ -99,11 +99,23 @@
       <div class="box">
         <p class="title-text"> GET YOUR FUNDS HERE </p>
        <div id="balance-container">
-         BalanceOf:
-         <span data-behavior="balance"></span>
-         <form id="balance">
+         FUND INFORMATION:
+         <br>
+         <br>
+         <span data-behavior="dummy"></span>
+         FUND-ID:
+         <span data-behavior="fund-id"></span>
+         FUND-TOKENS:
+         <span data-behavior="fund-tokens"></span>
+         FUND-MANAGER:
+         <span data-behavior="fund-manager"></span>
+         FUND-DESCRIPTION:
+         <span data-behavior="fund-description"></span>
+         <br>
+         <form id="obtainFundInfo">
            <fieldset>
-          <input id="balance-input" type="text"></input>
+             ENTER FUND ID HERE:
+          <input id="fund-input" type="text"></input>
           <input type="submit" ></input>
          </fieldset>
          </form>

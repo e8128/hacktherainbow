@@ -3,13 +3,14 @@ import 'regenerator-runtime/runtime'
 import { initContract, login, logout } from './utils'
 
 import getConfig from './config'
+//import {Fund} from '../assembly/main.ts'
 import { context } from 'near-api-js'
 const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 
 // global variable used throughout
 let currentBalance
 let currentFund
-
+let obtainedFund
 const balanceButton = document.getElementById('balance-button')
 
 //////////////////////////////////////////////////////////////////////////
@@ -34,7 +35,6 @@ document.getElementById('balance').onsubmit = async (event) => {
     throw e
   } finally {
     // re-enable the form, whether the call succeeded or failed
-    balanceButton.disabled=false
   }
 
   // update the counter in the UI
@@ -71,7 +71,42 @@ document.getElementById('createFund').onsubmit = async (event) => {
     throw e
   } finally {
     // re-enable the form, whether the call succeeded or failed
-    balanceButton.disabled=false
+  }
+
+  // update the counter in the UI
+  
+
+  // show notification
+  document.querySelector('[data-behavior=notification]').style.display = 'block'
+  // remove notification again after css animation completes
+  // this allows it to be shown again next time the form is submitted
+  setTimeout(() => {
+    document.querySelector('[data-behavior=notification]').style.display = 'none'
+  }, 11000)
+}
+/////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////
+document.getElementById('obtainFundInfo').onsubmit = async (event) => {
+  event.preventDefault()
+  const fundID = document.getElementById("fund-input").value
+  alert(fundID)
+  try {
+    // make an update call to the smart contract
+    await fetchFund2(fundID)
+    // await fetchFund()
+    
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'+
+      e
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
   }
 
   // update the counter in the UI
@@ -116,7 +151,7 @@ function signedInFlow() {
 }
 
 async function fetchFund(id,description) {
-   currentFund = await contract.createFund({fundId:id,manager:walletAccount.getAccountId(),description})
+   currentFund = await contract.createFund({fundId:id,manager:window.accountId,description:description})
    document.querySelectorAll('[data-behavior=fund]').forEach(el => {
      // set divs, spans, etc
      el.innerText = currentFund
@@ -135,6 +170,42 @@ async function fetchBalance(owner) {
     el.innerText = currentBalance
     // set input elements
     el.value = currentBalance
+  })
+}
+
+async function fetchFund2(fund_id) {
+  alert("funds being obtained")
+  obtainedFund = await contract.getFund({fundId:fund_id})
+  let id = obtainedFund.fundId
+  let tokens = obtainedFund.tokens
+  let manager = obtainedFund.manager
+  let description = obtainedFund.description
+  document.querySelectorAll('[data-behavior=fund-id]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = id
+    // set input elements
+    el.value = id
+  })
+  ////////////////////////
+  document.querySelectorAll('[data-behavior=fund-tokens]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = tokens
+    // set input elements
+    el.value = tokens
+  })
+  /////////////////////////
+  document.querySelectorAll('[data-behavior=fund-manager]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = manager
+    // set input elements
+    el.value = manager
+  })
+  ///////////////////////////
+  document.querySelectorAll('[data-behavior=fund-description]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = description
+    // set input elements
+    el.value = description
   })
 }
 
