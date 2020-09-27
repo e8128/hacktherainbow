@@ -1,4 +1,4 @@
-// @nearBindgen
+// @nearfile
 import { context, storage, logging, PersistentMap } from "near-sdk-as";
 
 // --- contract code goes below
@@ -7,8 +7,6 @@ const balances = new PersistentMap<string, u64>("b:");
 const funds = new PersistentMap<string, Fund>("f:");
 
 const TOTAL_SUPPLY: u64 = 1000000;
-
-
 export function init(initialOwner: string): void {
   logging.log("initialOwner: " + initialOwner);
   assert(storage.get<string>("init") == null, "Already initialized token supply");
@@ -54,6 +52,7 @@ function getBalance(owner: string): u64 {
 
 export function getFund(fundId: string): Fund {
   logging.log("getFund: " + fundId);
+  assert(funds.contains(fundId), "fund does not exist")
   return funds.getSome(fundId);
 }
 
@@ -92,7 +91,7 @@ export function editManager(fundId: string, newManager: string): boolean {
   funds.set(fundId, new Fund(fundId, fund.tokens, newManager, fund.description));
   return true;
 }
-
+1
 export function emptyFund(fundId: string): boolean {
   let fund: Fund = funds.getSome(fundId);
   logging.log("fund " + fundId + " emptied");
@@ -103,20 +102,16 @@ export function emptyFund(fundId: string): boolean {
   return true;
 }
 
-  export class Fund {
-    fundId: string;
-    tokens: u64;
-    manager: string;
-    description: string;
+export class Fund {
+  fundId: string;
+  tokens: u64;
+  manager: string;
+  description: string;
 
-    constructor(fundId: string, tokens: u64, manager: string, description: string) {
-      this.fundId = fundId;
-      this.tokens = tokens;
-      this.manager = manager;
-      this.description = description;
-    }
-    
+  constructor(fundId: string, tokens: u64, manager: string, description: string) {
+    this.fundId = fundId;
+    this.tokens = tokens;
+    this.manager = manager;
+    this.description = description;
   }
-
- 
-  
+}

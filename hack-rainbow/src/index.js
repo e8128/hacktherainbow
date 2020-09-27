@@ -176,10 +176,11 @@ async function fetchBalance(owner) {
 async function fetchFund2(fund_id) {
   alert("funds being obtained")
   obtainedFund = await contract.getFund({fundId:fund_id})
+  alert("object obtained")
   let id = obtainedFund.fundId
-  let tokens = obtainedFund.tokens
-  let manager = obtainedFund.manager
-  let description = obtainedFund.description
+  let tokens =obtainedFund.tokens
+  let manager =obtainedFund.manager
+  let description =obtainedFund.description
   document.querySelectorAll('[data-behavior=fund-id]').forEach(el => {
     // set divs, spans, etc
     el.innerText = id
@@ -207,6 +208,7 @@ async function fetchFund2(fund_id) {
     // set input elements
     el.value = description
   })
+  alert("fund information retrieved succssfully");
 }
 
 async function initToken() {
