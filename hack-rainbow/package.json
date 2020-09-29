@@ -27,7 +27,7 @@
     "near-api-js": "^0.29.1",
     "regenerator-runtime": "^0.13.7",
     "typescript": "^4.0.3",
-    "yarn": "^1.22.5"
+    "yarn": "^1.22.10"
   },
   "jest": {
     "testEnvironment": "near-cli/test_environment",
