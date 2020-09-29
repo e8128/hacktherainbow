@@ -1,4 +1,4 @@
-Multipurpose Distributed Fund Management App
+##Multipurpose Distributed Fund Management App
 
 Have you ever tried to raise an office fund to go to the beach and found it hard to keep track of who has paid or not? Are you a creator who wants to set donation goals to produce new forms of content? We have a solution for you.
 
