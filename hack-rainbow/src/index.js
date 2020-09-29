@@ -10,7 +10,11 @@ const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 // global variable used throughout
 let currentBalance
 let currentFund
+
 let obtainedFund
+
+
+
 const balanceButton = document.getElementById('balance-button')
 
 //////////////////////////////////////////////////////////////////////////
@@ -22,7 +26,11 @@ document.getElementById('balance').onsubmit = async (event) => {
   alert(account)
   try {
     // make an update call to the smart contract
+
     await fetchBalance(account)
+
+    await fetchBalance(balance.value)
+
     // await fetchFund()
     
   } catch (e) {
@@ -191,12 +199,24 @@ function signedInFlow() {
   contractLink.href = contractLink.href.replace('testnet', networkId)
 }
 
+
 async function fetchFund(id,description) {
   alert(id)
    currentFund = await contract.createFund({fundId:id,manager:window.accountId,description:description})
   
    if(currentFund) {alert("Fund created successfully")} else {alert("fund creation failed")}
 }
+
+// async function fetchFund() {
+//   currentFund = await contract.
+//   document.querySelectorAll('[data-behavior=fund]').forEach(el => {
+//     // set divs, spans, etc
+//     el.innerText = currentFund
+//     // set input elements
+//     el.value = currentFund
+//   })
+// }
+
 
 async function fetchBalance(owner) {
   currentBalance = await contract.balanceOf({tokenOwner:owner})

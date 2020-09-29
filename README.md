@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Token Contract in AssemblyScript
 ================================
 
@@ -78,3 +79,10 @@ Both contract and client-side code will auto-reload as you change source files.
   [smart contract docs]: https://docs.nearprotocol.com/docs/roles/developer/contracts/assemblyscript
   [asp]: https://www.npmjs.com/package/@as-pect/cli
   [jest]: https://jestjs.io/
+=======
+## Multipurpose Distributed Fund Management App
+
+Have you ever tried to raise an office fund to go to the beach and found it hard to keep track of who has paid or not? Are you a creator who wants to set donation goals to produce new forms of content? We have a solution for you.
+
+The Multipurpose Distributed Fund Management App uses state of the art blockchain technology to provide a secure and reliable way to transfer tokens between users and to funds. All transactions are logged in the blockchain, eliminating all forms of confusion. A robust suite of features allows fund managers to micromanage their funds for all sorts of different purposes. Try the Multipurpose Distributed Fund Management App today!
+>>>>>>> f4ccf231b305c1fb087f5ba99a92548b9cacb4f8

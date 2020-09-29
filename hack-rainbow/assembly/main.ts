@@ -91,7 +91,7 @@ export function editManager(fundId: string, newManager: string): boolean {
   funds.set(fundId, new Fund(fundId, fund.tokens, newManager, fund.description));
   return true;
 }
-1
+
 export function emptyFund(fundId: string): boolean {
   let fund: Fund = funds.getSome(fundId);
   logging.log("fund " + fundId + " emptied");
