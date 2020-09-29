@@ -37,7 +37,7 @@
     <main>
         <div id="root-container">
           <div id="nav-menu">
-            <img id="logo"src=""></img>
+            <img id="logo"src="./assets/untitled.png"></img>
             <div id="menu-items">
               <ul id="items">
                 <li class="list-items"> <a class="link-text" href="#introduction">Who are we</a></li>
@@ -45,20 +45,23 @@
                 <a class="link-text" href="#check">Check Your Balance</a></li>
                 <li class="list-items"> <a class="link-text" href="#create">Create a fund</a></li>
                 <li class="list-items"> <a class="link-text" href="#info">Get fund information</a></li>
-                <li class="list-items"> spice</li>
-                <li class="list-items"> Everything nice</li>
                </ul>
             </div>
+            <a href="https://github.com/e8128/hacktherainbow"><img style="width:3vw;height:vh" src="./assets/github-logo.png" ></img></a>
           </div>
            <div id ="title">
-            <h1> Welcome to <s>the Den of Dengeneracy</s>DonationHub</h1>
+            <h1> Multipurpose Distributed Fund Management App</h1>
+           </div>
           </div> 
         
           <div id="introduction">
             <p class="title-text"> Introduction </p>
-         <img id="introduction-image" src="./assets/logo-black.svg"alt="hello"></img>
+         <img id="introduction-image" src="./assets/happiness2.jpg"alt="hello"></img>
       <div id="introduction-text">
-        <p> LOLOLOL. I want to see how far this rabbit hole goes. IDK where or when this line will end. NVm i  just figured it out</p>
+        <p>  Have you ever tried to raise an office fund to go to the beach and found it hard to keep track of who has paid or not? Are you a creator who wants to set donation goals to produce new forms of content? We have a solution for you.
+
+          The Multipurpose Distributed Fund Management App uses state of the art blockchain technology to provide a secure and reliable way to transfer tokens between users and to funds. All transactions are logged in the blockchain, eliminating all forms of confusion. A robust suite of features allows fund managers to micromanage their funds for all sorts of different purposes. Try the Multipurpose Distributed Fund Management App today!
+          </p>
       </div>
      </div>
      
@@ -68,7 +71,7 @@
           <p id="check" class="title-text"> CHECK YOUR BALANCE HERE </p>
          <div class="balance-container">
           
-           <span data-behavior="balance"></span>
+           Balance:<span data-behavior="balance"></span>
            <form class="form-format" id="balance">
              <fieldset class="field-format">
               ENTER A FUND ID HERE:<br>
@@ -81,9 +84,8 @@
       <div class="barrier"></div>
 
       <div class="box">
-        <p id="create" class="title-text"> CREATE YOUR FUNDS HERE </p>
+        <p id="create" class="title-text"> Create your fund here </p>
        <div class="balance-container">
-         <span data-behavior="balance"></span>
          <form class="form-format" id="createFund" accept-charset = "UTF-16">
            <fieldset class = "field-format">
            <p>ENTER FUND INFO BELOW:</p>
@@ -101,9 +103,8 @@
       <div class="barrier"></div>
 
       <div class="box">
-        <p id="info" class="title-text"> GET YOUR FUNDS HERE </p>
+        <p id="info" class="title-text"> Get fund information </p>
        <div class="balance-container">
-         <div>FUND INFORMATION:</div>
          <form class="form-format" id="obtainFundInfo">
           <span data-behavior="dummy"></span>
           FUND-ID:
@@ -116,7 +117,7 @@
           <span data-behavior="fund-description"></span>
            <fieldset class = "field-format">
             <div class="label-text">ENTER FUND ID HERE:</div>
-          <input class="text-input" type="text"></input>
+          <input id="fund-info" class="text-input" type="text"></input>
           <input class="submit-button" type="submit" ></input>
          </fieldset>
          </form>

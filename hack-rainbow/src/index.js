@@ -72,7 +72,6 @@ document.getElementById('createFund').onsubmit = async (event) => {
   } finally {
     // re-enable the form, whether the call succeeded or failed
   }
-
   // update the counter in the UI
   
 
@@ -90,7 +89,8 @@ document.getElementById('createFund').onsubmit = async (event) => {
 ///////////////////////////////////////////////////////////////////////
 document.getElementById('obtainFundInfo').onsubmit = async (event) => {
   event.preventDefault()
-  const fundID = document.getElementById("fund-input").value
+  const fundID = document.getElementById("fund-info").value
+  console.log("hello");
   alert(fundID)
   try {
     // make an update call to the smart contract
@@ -108,6 +108,7 @@ document.getElementById('obtainFundInfo').onsubmit = async (event) => {
   } finally {
     // re-enable the form, whether the call succeeded or failed
   }
+    
 
   // update the counter in the UI
   
@@ -151,7 +152,9 @@ function signedInFlow() {
 }
 
 async function fetchFund(id,description) {
+  alert(id)
    currentFund = await contract.createFund({fundId:id,manager:window.accountId,description:description})
+  
    document.querySelectorAll('[data-behavior=fund]').forEach(el => {
      // set divs, spans, etc
      el.innerText = currentFund
@@ -162,7 +165,6 @@ async function fetchFund(id,description) {
 }
 
 async function fetchBalance(owner) {
-  alert(owner+"asd")
   currentBalance = await contract.balanceOf({tokenOwner:owner})
   
   document.querySelectorAll('[data-behavior=balance]').forEach(el => {
@@ -208,7 +210,7 @@ async function fetchFund2(fund_id) {
     // set input elements
     el.value = description
   })
-  alert("fund information retrieved succssfully");
+  alert("fund information retrieved successfully");
 }
 
 async function initToken() {
