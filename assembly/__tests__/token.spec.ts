@@ -1,5 +1,5 @@
 import { Context, u128 } from "near-sdk-as";
-import { init, totalSupply, balanceOf, transfer, approve, transferFrom } from "../main";
+import { init, totalSupply, balanceOf, transfer, transferFrom } from "../hack-rainbow";
 
 let alice = 'alice';
 let bob = 'bob.near';
@@ -38,8 +38,6 @@ describe('Token', function() {
       const aliceStartBalance = balanceOf(alice);
       const bobStartBalance = balanceOf(bob);
       const eveStartBalance = balanceOf(eve);
-
-      approve(eve, 100);
 
       const aliceMidBalance = balanceOf(alice);
       const bobMidBalance = balanceOf(bob);

@@ -1,7 +1,7 @@
 const compile = require("near-sdk-as/compiler").compile
 
-compile("assembly/main.ts", // input file
-        "out/main.wasm",    // output file
+compile("assembly/hack-rainbow.ts", // input file
+        "out/hack-rainbow.wasm",    // output file
         [
         //   "-O1",          // Optional arguments
         "--debug",
