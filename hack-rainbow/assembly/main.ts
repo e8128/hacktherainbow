@@ -52,6 +52,7 @@ function getBalance(owner: string): u64 {
 
 export function getFund(fundId: string): Fund {
   logging.log("getFund: " + fundId);
+  assert(funds.contains(fundId), "fund does not exist")
   return funds.getSome(fundId);
 }
 
