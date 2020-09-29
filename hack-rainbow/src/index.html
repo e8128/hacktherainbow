@@ -35,6 +35,7 @@
       Sign out
     </button>
     <main>
+
         <div id="root-container">
           <div id="nav-menu">
             <img id="logo"src="./assets/untitled.png"></img>
@@ -46,6 +47,26 @@
                 <li class="list-items"> <a class="link-text" href="#create">Create a fund</a></li>
                 <li class="list-items"> <a class="link-text" href="#info">Get fund information</a></li>
                </ul>
+
+      <div id="shmuck">
+        <h1>
+          Balance: 
+          <span data-behavior="balance"></span>
+          <br>
+          Fund:
+          <span data-behavior="fund"></span>
+        </h1>
+        <form id="balance">
+          <fieldset id="inc-fieldset">
+            <div style="display: flex">
+              <input
+                style="flex: 1"
+                autocomplete="off"
+                id="balance"
+                data-behavior="balance1"
+              />
+              <button id="balance-button" style="border-radius: 0 5px 5px 0">get balance</button>
+
             </div>
             <a href="https://github.com/e8128/hacktherainbow"><img style="width:3vw;height:vh" src="./assets/github-logo.png" ></img></a>
           </div>
