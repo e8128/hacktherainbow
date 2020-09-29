@@ -61,7 +61,6 @@ document.getElementById('balance').onsubmit = async (event) => {
 document.getElementById('createFund').onsubmit = async (event) => {
   event.preventDefault()
   const fundID = document.getElementById("create-fund-id").value
-  const fundManager = document.getElementById("create-fund-manager").value
   const fundDescription = document.getElementById("create-fund-description").value
   alert(fundID)
   try {
@@ -130,6 +129,47 @@ document.getElementById('obtainFundInfo').onsubmit = async (event) => {
   }, 11000)
 }
 /////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////
+document.getElementById('donate').onsubmit = async (event) => {
+  event.preventDefault()
+  const fundID = document.getElementById("donate-fund").value
+  const amount = document.getElementById("donate-amount").value
+  console.log(fundID);
+  alert(fundID)
+  try {
+    // make an update call to the smart contract
+    await donate(fundID,amount)
+    // await fetchFund()
+    
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'+
+      e
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+  }
+    
+
+  // update the counter in the UI
+  
+
+  // show notification
+  document.querySelector('[data-behavior=notification]').style.display = 'block'
+  // remove notification again after css animation completes
+  // this allows it to be shown again next time the form is submitted
+  setTimeout(() => {
+    document.querySelector('[data-behavior=notification]').style.display = 'none'
+  }, 11000)
+}
+/////////////////////////////////////////////////////////////////
+
+
 document.querySelector('#sign-in-button').onclick = login
 document.querySelector('#sign-out-button').onclick = logout
 
@@ -164,12 +204,6 @@ async function fetchFund(id,description) {
   alert(id)
    currentFund = await contract.createFund({fundId:id,manager:window.accountId,description:description})
   
-   document.querySelectorAll('[data-behavior=fund]').forEach(el => {
-     // set divs, spans, etc
-     el.innerText = currentFund
-     // set input elements
-    el.value = currentFund
-   })
    if(currentFund) {alert("Fund created successfully")} else {alert("fund creation failed")}
 }
 
@@ -193,6 +227,11 @@ async function fetchBalance(owner) {
     // set input elements
     el.value = currentBalance
   })
+}
+
+async function donate(toFund,amount) {
+  await contract.donate({fundId:toFund,tokens:amount})
+  alert("funds have been donated successfully")
 }
 
 async function fetchFund2(fund_id) {
