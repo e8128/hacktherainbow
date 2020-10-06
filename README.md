@@ -7,7 +7,7 @@ Have you ever tried to raise an office fund to go to the beach and found it hard
 The Multipurpose Distributed Fund Management App uses state of the art blockchain technology to provide a secure and reliable way to transfer tokens between users and to funds. All transactions are logged in the blockchain, eliminating all forms of confusion. A robust suite of features allows fund managers to micromanage their funds for all sorts of different purposes. Try the Multipurpose Distributed Fund Management App today!
 
 
-Video Demonstration: https://www.youtube.com/watch?v=_1GiaDbkfg0
+Video Demonstration: https://youtu.be/QE7M6fD8OUs
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/e8128/hacktherainbow)
 
